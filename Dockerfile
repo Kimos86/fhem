@@ -37,10 +37,14 @@ RUN apt-get -f --force-yes install && apt-get -y --force-yes install perl libdev
 #RUN mkdir -p /var/log/supervisor
 
 # Install fhem kimos86
-RUN wget http://fhem.de/fhem-5.8.deb
-RUN dpkg -i fhem-5.8.deb
+#RUN wget http://fhem.de/fhem-5.8.deb
+#RUN dpkg -i fhem-5.8.deb
+RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
+RUN echo "deb https://debian.fhem.de/stable ./" | tee -a /etc/apt/sources.list.d/fhem.list
+RUN apt-get update
+RUN apt-get -y --force-yes install fhem
 
-RUN echo Europe/Vienna > /etc/timezone && dpkg-reconfigure tzdata
+RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
 # Install Homebridge
 #RUN wget https://nodejs.org/dist/latest-v0.12.x/node-v0.12.10-linux-x64.tar.gz -P /tmp && cd /usr/local && tar xzvf /tmp/node-v0.12.10-linux-x64.tar.gz --strip=1
