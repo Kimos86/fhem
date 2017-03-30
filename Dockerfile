@@ -7,7 +7,7 @@ ENV TERM xterm
 
 # Install dependencies
 RUN apt-get update
-#RUN apt-get -y --force-yes install wget git nano make gcc g++ apt-transport-https libavahi-compat-libdnssd-dev sudo nodejs etherwake
+RUN apt-get -y --force-yes install wget git nano make gcc g++ apt-transport-https libavahi-compat-libdnssd-dev sudo nodejs etherwake
 
 # Install perl packages
 #RUN apt-get -y --force-yes install libalgorithm-merge-perl \
