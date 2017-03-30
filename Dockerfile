@@ -82,3 +82,5 @@ EXPOSE 51826
 #COPY start.sh ./
 #RUN chmod +x ./start.sh
 #CMD ["./start.sh"]
+CMD /etc/init.d/dbus restart
+CMD service avahi-daemon start
