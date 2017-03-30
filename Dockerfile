@@ -36,9 +36,13 @@ RUN apt-get -f --force-yes install && apt-get -y --force-yes install perl libdev
 #RUN apt-get -y --force-yes install supervisor fhem telnet
 #RUN mkdir -p /var/log/supervisor
 
+WORKDIR /opt
 # Install fhem kimos86
 RUN wget http://fhem.de/fhem-5.8.deb
 RUN dpkg -i fhem-5.8.deb || true
+
+RUN echo 'fhem    ALL = NOPASSWD:ALL' >>/etc/sudoers
+RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
 
 
 RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
@@ -67,7 +71,7 @@ RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 #RUN chown fhem /opt/fhem/fhem.cfg
 
 #change kimos86
-RUN cd /opt && chmod -R a+w fhem && usermod -a -G tty pi && usermod -a -G tty fhem
+#RUN cd /opt && chmod -R a+w fhem && usermod -a -G tty pi && usermod -a -G tty fhem
 
 VOLUME ["/opt/fhem"]
 
