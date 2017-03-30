@@ -37,7 +37,7 @@ RUN apt-get -f --force-yes install && apt-get -y --force-yes install perl libdev
 #RUN mkdir -p /var/log/supervisor
 
 # Install fhem kimos86
-RUN wget -qO -http://fhem.de/fhem-5.8.deb
+RUN wget http://fhem.de/fhem-5.8.deb
 RUN dpkg -i fhem-5.7.deb
 
 RUN echo Europe/Vienna > /etc/timezone && dpkg-reconfigure tzdata
