@@ -7,32 +7,38 @@ ENV TERM xterm
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get -y --force-yes install wget git nano make gcc g++ apt-transport-https libavahi-compat-libdnssd-dev sudo nodejs etherwake
+#RUN apt-get -y --force-yes install wget git nano make gcc g++ apt-transport-https libavahi-compat-libdnssd-dev sudo nodejs etherwake
 
 # Install perl packages
-RUN apt-get -y --force-yes install libalgorithm-merge-perl \
-libclass-isa-perl \
-libcommon-sense-perl \
-libdpkg-perl \
-liberror-perl \
-libfile-copy-recursive-perl \
-libfile-fcntllock-perl \
-libio-socket-ip-perl \
-libjson-perl \
-libjson-xs-perl \
-libmail-sendmail-perl \
-libsocket-perl \
-libswitch-perl \
-libsys-hostname-long-perl \
-libterm-readkey-perl \
-libterm-readline-perl-perl
+#RUN apt-get -y --force-yes install libalgorithm-merge-perl \
+#libclass-isa-perl \
+#libcommon-sense-perl \
+#libdpkg-perl \
+#liberror-perl \
+#libfile-copy-recursive-perl \
+#libfile-fcntllock-perl \
+#libio-socket-ip-perl \
+#libjson-perl \
+#libjson-xs-perl \
+#libmail-sendmail-perl \
+#libsocket-perl \
+#libswitch-perl \
+#libsys-hostname-long-perl \
+#libterm-readkey-perl \
+#libterm-readline-perl-perl
 
-# Install fhem
-RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
-RUN echo "deb https://debian.fhem.de/stable ./" | tee -a /etc/apt/sources.list.d/fhem.list
-RUN apt-get update
-RUN apt-get -y --force-yes install supervisor fhem telnet
-RUN mkdir -p /var/log/supervisor
+# Install perl packages kimos86
+RUN apt-get -f --force-yes install && apt-get -y --force-yes install perl libdevice-serialport-perl libio-socket-ssl-perl libwww-perl libxml-simple-perl
+
+#RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
+#RUN echo "deb https://debian.fhem.de/stable ./" | tee -a /etc/apt/sources.list.d/fhem.list
+#RUN apt-get update
+#RUN apt-get -y --force-yes install supervisor fhem telnet
+#RUN mkdir -p /var/log/supervisor
+
+# Install fhem kimos86
+RUN wget -qO -http://fhem.de/fhem-5.8.deb
+RUN dpkg -i fhem-5.7.deb
 
 RUN echo Europe/Vienna > /etc/timezone && dpkg-reconfigure tzdata
 
@@ -59,12 +65,15 @@ RUN echo Europe/Vienna > /etc/timezone && dpkg-reconfigure tzdata
 
 #RUN chown fhem /opt/fhem/fhem.cfg
 
+#change kimos86
+RUN cd /opt && chmod -R a+w fhem && usermod -a -G tty pi && usermod -a -G tty fhem
+
 VOLUME ["/opt/fhem"]
 
 # Ports
 EXPOSE 8083
 EXPOSE 51826
 
-COPY start.sh ./
-RUN chmod +x ./start.sh
-CMD ["./start.sh"]
+#COPY start.sh ./
+#RUN chmod +x ./start.sh
+#CMD ["./start.sh"]
