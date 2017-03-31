@@ -48,7 +48,7 @@ RUN echo 'fhem    ALL = NOPASSWD:ALL' >>/etc/sudoers
 RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
 #RUN echo 'define Wetter_Villach Weather 540859 1800 de'   >> /opt/fhem/fhem.cfg
 
-RUN cd /opt && chown -R a+w fhem && sudo usermod -a -G tty fhem
+#RUN cd /opt && chown -R a+w fhem && sudo usermod -a -G tty fhem
 
 #Install supervisord
 RUN apt-get -y --force-yes install supervisor && apt-get clean
