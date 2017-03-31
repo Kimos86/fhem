@@ -48,8 +48,13 @@ RUN echo 'fhem    ALL = NOPASSWD:ALL' >>/etc/sudoers
 RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
 #RUN echo 'define Wetter_Villach Weather 540859 1800 de'   >> /opt/fhem/fhem.cfg
 
+#Install supervisord
+RUN apt-get -y --force-yes install supervisor && apt-get clean
+RUN mkdir -p /var/log/supervisor
 
 RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 VOLUME ["/opt/fhem"]
 
@@ -57,9 +62,8 @@ VOLUME ["/opt/fhem"]
 EXPOSE 8083
 EXPOSE 51826
 
-CMD /etc/init.d/fhem start
 
-#COPY start.sh ./
-#RUN chmod +x ./start.sh
-#CMD ["./start.sh"]
+COPY start.sh ./
+RUN chmod +x ./start.sh
+CMD ["./start.sh"]
 
