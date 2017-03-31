@@ -72,6 +72,7 @@ RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
 #change kimos86
 #RUN cd /opt && chmod -R a+w fhem && usermod -a -G tty pi && usermod -a -G tty fhem
+RUN cd /opt && chmod -R a+w fhem && usermod -a -G tty admin && usermod -a -G tty fhem
 
 VOLUME ["/opt/fhem"]
 
