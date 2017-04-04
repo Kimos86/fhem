@@ -58,7 +58,10 @@ RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN mkdir -p /opt/data
+
 VOLUME ["/opt/fhem"]
+VOLUME ["/opt/data"]
 
 # Ports
 EXPOSE 8083
