@@ -45,7 +45,7 @@ RUN wget http://fhem.de/fhem-5.8.deb
 RUN dpkg -i fhem-5.8.deb || true
 # RUN rm fhem.deb
 RUN echo 'fhem    ALL = NOPASSWD:ALL' >>/etc/sudoers
-RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
+#RUN echo 'attr global pidfilename /var/run/fhem/fhem.pid' >> /opt/fhem/fhem.cfg
 #RUN echo 'define Wetter_Villach Weather 540859 1800 de'   >> /opt/fhem/fhem.cfg
 
 #RUN cd /opt && chown -R a+w fhem && sudo usermod -a -G tty fhem
